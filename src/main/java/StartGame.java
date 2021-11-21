@@ -13,4 +13,6 @@ public class StartGame {
                               .startGame()
                               .forEach(t-> System.out.println(t.getPosition()));
     }
+
+
 }

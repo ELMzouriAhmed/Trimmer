@@ -43,7 +43,7 @@ public class TondeuseTest {
     public void checkMovement(){
         matrix[1][2]=new Tondeuse(4,2, Orientation.N);
         matrix[1][2]=new Tondeuse(1,3, Orientation.E);
-        assertEquals(matrix[1][2].getOrientation(),Orientation.E);
+        assertEquals(matrix[1][2].orientation(),Orientation.E);
     }
 
 

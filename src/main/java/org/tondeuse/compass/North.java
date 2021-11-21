@@ -2,19 +2,24 @@ package org.tondeuse.compass;
 
 import org.tondeuse.*;
 
-public class North implements Direction {
+public class North extends DirectionTemplate {
+
 
     @Override
-    public Tondeuse moveTo(Pivot pivot, Tondeuse tondeuse,Pelouse pelouse) {
-        if(pivot.equals(Pivot.G)) return  new Tondeuse(tondeuse.getHorizontal(),tondeuse.getVertical(), Orientation.W);
-        if(pivot.equals(Pivot.D)) return  new Tondeuse(tondeuse.getHorizontal(),tondeuse.getVertical(), Orientation.E);
-        if(pivot.equals(Pivot.A)) return checkMatrix(tondeuse,pelouse);
+    protected Orientation getRightOrientation() {
+        return Orientation.E;
+    }
+
+    @Override
+    protected Orientation getLeftOrientation() {
+        return Orientation.W;
+    }
+
+    @Override
+    protected Tondeuse doCheckMatrixForMovements(Tondeuse tondeuse, Pelouse pelouse) {
+        if(tondeuse.vertical()<pelouse.vertical())
+            return new Tondeuse(tondeuse.horizontal(),tondeuse.vertical()+1, Orientation.N);
         return tondeuse;
     }
 
-    private Tondeuse checkMatrix(Tondeuse tondeuse, Pelouse pelouse) {
-        if(tondeuse.getVertical()<pelouse.getVertical()) return
-                new Tondeuse(tondeuse.getHorizontal(),tondeuse.getVertical()+1, Orientation.N);
-        return new Tondeuse(tondeuse.getHorizontal(),tondeuse.getVertical(), Orientation.N);
-    }
 }
