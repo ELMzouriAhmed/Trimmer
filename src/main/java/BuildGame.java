@@ -1,8 +1,8 @@
-import org.tondeuse.Orientation;
-import org.tondeuse.Pelouse;
-import org.tondeuse.Pivot;
-import org.tondeuse.Tondeuse;
-import org.tondeuse.exception.NotFoundDataInFileException;
+import org.trimmer.Orientation;
+import org.trimmer.Pelouse;
+import org.trimmer.Pivot;
+import org.trimmer.Trimmer;
+import org.trimmer.exception.NotFoundDataInFileException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ public record BuildGame(Optional<List<String>> dataFileLines) {
         this.dataFileLines = dataFileLines;
     }
 
-    public List<Tondeuse> startGame() {
-        List<Tondeuse> tondeuseList = new ArrayList<>();
+    public List<Trimmer> startGame() {
+        List<Trimmer> tondeuseList = new ArrayList<>();
         Pelouse pelouse =buildPeleuse(this.dataFileLines.get().get(0));
         int index = 1;
         while (index < this.dataFileLines.get().size()) {
-            Tondeuse tondeuse = buildTondeuse(this.dataFileLines.get().get(index));
+            Trimmer tondeuse = buildTondeuse(this.dataFileLines.get().get(index));
             List<Pivot> pivots = buildPivots(this.dataFileLines.get().get(index + 1));
             index += 2;
             tondeuseList.add(tondeuse.getGameResult(pivots, tondeuse, pelouse));
@@ -40,9 +40,9 @@ public record BuildGame(Optional<List<String>> dataFileLines) {
         return pivots;
     }
 
-    private Tondeuse buildTondeuse(String dataFile) {
+    private Trimmer buildTondeuse(String dataFile) {
         String[] tondeuseFile = dataFile.split(" ");
-        return new Tondeuse(Integer.parseInt(tondeuseFile[0]),
+        return new Trimmer(Integer.parseInt(tondeuseFile[0]),
                 Integer.parseInt(tondeuseFile[1]),
                 Orientation.valueOf(tondeuseFile[2]));
     }
